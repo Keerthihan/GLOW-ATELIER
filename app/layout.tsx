@@ -1,6 +1,7 @@
-// app/layout.tsx
 import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
+import { JsonLd } from "@/components/seo/JsonLd";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -82,15 +83,13 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+        <JsonLd data={jsonLd} />
       </head>
       <body
         className={`${playfair.variable} ${inter.variable} font-body bg-white-rock text-thunder antialiased min-h-screen`}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );
