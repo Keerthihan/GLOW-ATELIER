@@ -1,0 +1,6 @@
+{
+  "name": "Glow Atelier",
+  "description": "Seaside luxury beauty parlour in Colombo, Sri Lanka offering professional hair styling, facial treatments, bridal makeup, skin care and nail services.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
