@@ -42,6 +42,13 @@ export default defineType({
       title: 'Body',
       type: 'blockContent',
     }),
+    defineField({
+      name: 'gallery',
+      title: 'Gallery Images',
+      type: 'array',
+      of: [{ type: 'galleryImage' }],
+      description: 'Upload up to 6 images that will appear in the homepage gallery preview.',
+    }),
   ],
 
   preview: {

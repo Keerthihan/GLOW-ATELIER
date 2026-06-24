@@ -8,9 +8,27 @@ html {
 }
 
 body {
-  background-color: #F1E4DB; /* white-rock */
-  color: #372937; /* thunder */
+  background-color: #F7F3EF; /* pearl */
+  color: #0D1B2A; /* deep sea */
   font-family: var(--font-inter), sans-serif;
   margin: 0;
   padding: 0;
+}
+
+::selection {
+  background: #C17A7A;
+  color: #F7F3EF;
+}
+
+@layer utilities {
+  .spa-shell {
+    background:
+      radial-gradient(circle at 12% 8%, rgba(193, 122, 122, 0.22), transparent 28rem),
+      radial-gradient(circle at 88% 18%, rgba(111, 139, 122, 0.18), transparent 24rem),
+      linear-gradient(135deg, #F7F3EF 0%, #EEE6DD 100%);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
 }

@@ -8,30 +8,43 @@ import { Card } from "@/components/ui/Card";
 import { slideInLeft, slideInRight } from "@/lib/animations";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 
-export const BeforeAfter = () => {
+type BeforeAfterItem = {
+  _id?: string;
+  id?: string;
+  serviceCategory: string;
+  description: string;
+  beforeAlt: string;
+  afterAlt: string;
+  beforeImageUrl?: string;
+  afterImageUrl?: string;
+  beforeColor?: string;
+  afterColor?: string;
+};
+
+export const BeforeAfter = ({ items }: { items?: BeforeAfterItem[] }) => {
   const shouldReduceMotion = useReducedMotion();
+  const displayPairs: BeforeAfterItem[] =
+    items && items.length > 0 ? items : beforeAfterPairs;
 
   const animLeft = shouldReduceMotion ? {} : slideInLeft;
   const animRight = shouldReduceMotion ? {} : slideInRight;
 
   return (
-    <SectionWrapper id="beforeafter" className="bg-white-rock">
+    <SectionWrapper id="beforeafter" className="bg-grey-goose">
       <div className="max-w-7xl mx-auto text-center mb-16">
-        {/* Section Heading */}
-        <h2 className="font-display text-3xl lg:text-4xl font-semibold text-thunder mb-3">
+        <p className="font-body text-xs font-bold uppercase tracking-[0.24em] text-eucalyptus mb-3">
+          Visible change
+        </p>
+        <h2 className="font-display text-3xl lg:text-5xl font-semibold text-deep-sea mb-3">
           Transformations
         </h2>
-        {/* Accent Line */}
-        <div className="w-16 h-1 bg-pink-daisy mx-auto mt-2" />
+        <div className="w-16 h-1 bg-blush-clay rounded-full mx-auto mt-2" />
       </div>
 
-      {/* Grid: 2-column desktop, 1-column mobile */}
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8">
-        {beforeAfterPairs.map((pair) => (
-          <Card key={pair.id} className="p-8 flex flex-col justify-between">
-            {/* Split layout inside one card: Before / After Column */}
+        {displayPairs.map((pair) => (
+          <Card key={pair._id ?? pair.id} className="p-6 lg:p-7 flex flex-col justify-between">
             <div className="grid grid-cols-2 gap-6 items-center mb-8">
-              {/* Before Column */}
               <motion.div
                 className="flex flex-col items-center"
                 variants={animLeft}
@@ -39,19 +52,28 @@ export const BeforeAfter = () => {
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
               >
-                <span className="font-body text-xs font-semibold uppercase tracking-wider text-thunder/60 mb-2.5">
+                <span className="font-body text-xs font-semibold uppercase tracking-wider text-deep-sea/55 mb-2.5">
                   Before
                 </span>
                 <div
-                  className={`w-full aspect-[4/3] rounded-sm ${pair.beforeColor} flex flex-col items-center justify-center p-4 border-2 border-pink-daisy/40`}
+                  className={`w-full aspect-[4/5] rounded-[1.5rem] ${pair.beforeColor ?? "bg-grey-goose"} flex flex-col items-center justify-center overflow-hidden shadow-inner`}
                 >
-                  <span className="font-display text-xs italic font-semibold text-thunder/50 text-center uppercase tracking-wider">
-                    {pair.beforeAlt}
-                  </span>
+                  {pair.beforeImageUrl ? (
+                    <img
+                      src={pair.beforeImageUrl}
+                      alt={pair.beforeAlt}
+                      loading="lazy"
+                      decoding="async"
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <span className="font-display text-xs italic font-semibold text-deep-sea/50 text-center uppercase tracking-wider p-4">
+                      {pair.beforeAlt}
+                    </span>
+                  )}
                 </div>
               </motion.div>
 
-              {/* After Column */}
               <motion.div
                 className="flex flex-col items-center"
                 variants={animRight}
@@ -59,26 +81,35 @@ export const BeforeAfter = () => {
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
               >
-                <span className="font-body text-xs font-bold uppercase tracking-widest text-lotus mb-2.5">
+                <span className="font-body text-xs font-bold uppercase tracking-widest text-eucalyptus mb-2.5">
                   After
                 </span>
                 <div
-                  className={`w-full aspect-[4/3] rounded-sm ${pair.afterColor} flex flex-col items-center justify-center p-4 border-2 border-lotus/40 shadow-sm relative`}
+                  className={`w-full aspect-[4/5] rounded-[1.5rem] ${pair.afterColor ?? "bg-blush-clay"} flex flex-col items-center justify-center shadow-sm relative overflow-hidden`}
                 >
-                  <div className="absolute top-2 right-2 w-2 h-2 rounded-full bg-lotus animate-pulse" />
-                  <span className="font-display text-xs italic font-semibold text-thunder/70 text-center uppercase tracking-wider">
-                    {pair.afterAlt}
-                  </span>
+                  <div className="absolute top-3 right-3 w-2 h-2 rounded-full bg-golden-hour animate-pulse" />
+                  {pair.afterImageUrl ? (
+                    <img
+                      src={pair.afterImageUrl}
+                      alt={pair.afterAlt}
+                      loading="lazy"
+                      decoding="async"
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <span className="font-display text-xs italic font-semibold text-deep-sea/70 text-center uppercase tracking-wider p-4">
+                      {pair.afterAlt}
+                    </span>
+                  )}
                 </div>
               </motion.div>
             </div>
 
-            {/* Service category badge (pink-daisy bg) + description below */}
-            <div className="pt-6 border-t border-pink-daisy/15 text-left w-full mt-auto">
-              <span className="inline-block bg-pink-daisy text-thunder font-body text-xs font-bold px-3 py-1 rounded-sm uppercase tracking-wider mb-3">
+            <div className="pt-6 border-t border-blush-clay/15 text-left w-full mt-auto">
+              <span className="inline-block bg-blush-clay/12 text-deep-sea font-body text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider mb-3">
                 {pair.serviceCategory}
               </span>
-              <p className="font-body text-base text-thunder/85 leading-relaxed">
+              <p className="font-body text-base text-deep-sea/75 leading-relaxed">
                 {pair.description}
               </p>
             </div>

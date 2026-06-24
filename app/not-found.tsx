@@ -26,12 +26,10 @@ export default function NotFound() {
       </p>
 
       {/* CTA back to Home */}
-      <Link href="/" className="inline-block">
-        <Button variant="primary" className="flex items-center gap-2">
-          <ArrowLeft className="w-4 h-4" />
-          <span>Back to Home Sanctuary</span>
-        </Button>
-      </Link>
+      <Button href="/" variant="primary" className="inline-flex items-center gap-2">
+        <ArrowLeft className="w-4 h-4" />
+        <span>Back to Home Sanctuary</span>
+      </Button>
     </div>
   );
 }
