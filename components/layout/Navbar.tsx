@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Crown } from "lucide-react";
+import { Leaf, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 
 const navItems = [
@@ -82,7 +82,7 @@ export const Navbar = () => {
   const logoText = "GLOW ATELIER";
 
   return (
-    <nav className="sticky top-0 z-50 bg-thunder text-white-rock border-b border-pink-daisy/10 h-20 shadow-sm transition-all duration-300">
+    <nav className="sticky top-0 z-50 bg-pearl/85 text-deep-sea border-b border-white-rock/70 h-20 shadow-[0_10px_35px_rgba(13,27,42,0.06)] backdrop-blur-xl transition-all duration-300">
       <div className="max-w-7xl mx-auto h-full px-6 lg:px-16 flex items-center justify-between">
         {/* Logo Left */}
         <Link
@@ -90,8 +90,10 @@ export const Navbar = () => {
           onClick={() => handleLinkClick("#home")}
           className="flex items-center gap-2 group cursor-pointer"
         >
-          <Crown className="w-6 h-6 text-pink-daisy group-hover:scale-110 transition-transform duration-300" />
-          <span className="font-display text-lg tracking-[0.2em] font-bold text-white-rock uppercase">
+          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-eucalyptus/12 text-eucalyptus">
+            <Leaf className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
+          </span>
+          <span className="font-display text-lg tracking-[0.18em] font-bold text-deep-sea uppercase">
             {logoText}
           </span>
         </Link>
@@ -107,13 +109,13 @@ export const Navbar = () => {
                 key={item.label}
                 href={finalHref}
                 onClick={() => handleLinkClick(item.href)}
-                className={`font-body text-sm font-medium tracking-wider hover:text-pink-daisy transition-colors duration-200 relative py-2 uppercase ${
-                  isActive ? "text-pink-daisy" : "text-white-rock/80"
+                className={`font-body text-xs font-bold tracking-widest hover:text-blush-clay transition-colors duration-200 relative py-2 uppercase ${
+                  isActive ? "text-blush-clay" : "text-deep-sea/70"
                 }`}
               >
                 {item.label}
                 {isActive && (
-                  <span className="absolute bottom-0 left-0 w-full h-[2px] bg-pink-daisy" />
+                  <span className="absolute bottom-0 left-0 w-full h-[2px] bg-blush-clay rounded-full" />
                 )}
               </Link>
             );
@@ -123,7 +125,7 @@ export const Navbar = () => {
         {/* Mobile Hamburger Trigger */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="lg:hidden text-white-rock hover:text-pink-daisy transition-colors cursor-pointer"
+          className="lg:hidden text-deep-sea hover:text-blush-clay transition-colors cursor-pointer"
           aria-label="Toggle navigation menu"
         >
           {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -132,7 +134,7 @@ export const Navbar = () => {
 
       {/* Mobile Full-Screen Overlay Menu */}
       {isOpen && (
-        <div className="fixed inset-0 top-20 z-40 bg-thunder flex flex-col justify-center items-center gap-8 lg:hidden animate-fade-in px-6">
+        <div className="fixed inset-0 top-20 z-40 bg-pearl/95 backdrop-blur-xl flex flex-col justify-center items-center gap-8 lg:hidden animate-fade-in px-6">
           <div className="flex flex-col items-center gap-6 text-center">
             {navItems.map((item, index) => {
               const isActive = activeSection === item.href.replace("#", "");
@@ -143,8 +145,8 @@ export const Navbar = () => {
                   key={item.label}
                   href={finalHref}
                   onClick={() => handleLinkClick(item.href)}
-                  className={`font-display text-2xl tracking-wider hover:text-pink-daisy transition-colors duration-200 uppercase ${
-                    isActive ? "text-pink-daisy font-semibold" : "text-white-rock/90"
+                  className={`font-display text-2xl tracking-wider hover:text-blush-clay transition-colors duration-200 uppercase ${
+                    isActive ? "text-blush-clay font-semibold" : "text-deep-sea/90"
                   }`}
                   style={{ animationDelay: `${index * 50}ms` }}
                 >

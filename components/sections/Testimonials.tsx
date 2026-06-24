@@ -4,7 +4,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { testimonials } from "@/lib/mock-data";
-import { Card } from "@/components/ui/Card";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 
 export const Testimonials = () => {
@@ -42,12 +41,13 @@ export const Testimonials = () => {
   return (
     <SectionWrapper id="testimonials" className="bg-grey-goose overflow-hidden">
       <div className="max-w-7xl mx-auto text-center mb-16">
-        {/* Section Heading */}
-        <h2 className="font-display text-3xl lg:text-4xl font-semibold text-thunder mb-3">
+        <p className="font-body text-xs font-bold uppercase tracking-[0.24em] text-eucalyptus mb-3">
+          Client notes
+        </p>
+        <h2 className="font-display text-3xl lg:text-5xl font-semibold text-deep-sea mb-3">
           What Our Clients Say
         </h2>
-        {/* Accent Line */}
-        <div className="w-16 h-1 bg-pink-daisy mx-auto mt-2" />
+        <div className="w-16 h-1 bg-blush-clay rounded-full mx-auto mt-2" />
       </div>
 
       <div
@@ -73,14 +73,13 @@ export const Testimonials = () => {
                   className="px-2 snap-center"
                   style={{ width: `${100 / totalItems}%` }}
                 >
-                  <Card className="bg-white-rock p-8 rounded-sm h-full flex flex-col justify-between hover:border-lotus transition-all duration-300 relative min-h-[350px]">
-                    {/* Visual quote mark in pink-daisy */}
-                    <div className="font-display text-6xl text-pink-daisy leading-[0.2] text-left select-none mb-6">
+                  <div className="bg-white-rock/75 p-8 lg:p-10 rounded-[2rem] h-full flex flex-col justify-between transition-all duration-500 relative min-h-[350px] shadow-[0_18px_55px_rgba(13,27,42,0.07)] backdrop-blur">
+                    <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-blush-clay/10" />
+                    <div className="font-display text-7xl text-blush-clay/50 leading-[0.2] text-left select-none mb-8 relative">
                       “
                     </div>
 
-                    {/* Feedback copy */}
-                    <p className="font-body text-base text-thunder/85 leading-relaxed text-left italic mb-6">
+                    <p className="font-body text-base text-deep-sea/78 leading-relaxed text-left italic mb-6 relative">
                       {test.feedback}
                     </p>
 
@@ -94,8 +93,8 @@ export const Testimonials = () => {
                               key={starIdx}
                               className={`w-4 h-4 shrink-0 ${
                                 isFilled
-                                  ? "fill-lotus text-lotus"
-                                  : "text-pink-daisy/40"
+                                  ? "fill-golden-hour text-golden-hour"
+                                  : "text-blush-clay/25"
                               }`}
                             />
                           );
@@ -103,21 +102,18 @@ export const Testimonials = () => {
                       </div>
 
                       {/* Customer Info Row */}
-                      <div className="flex items-center gap-4 pt-6 border-t border-pink-daisy/10 text-left">
-                        {/* Circle Avatar Logo Placeholder */}
-                        <div className="w-12 h-12 rounded-full bg-grey-goose flex items-center justify-center border border-pink-daisy/35 shrink-0 overflow-hidden relative">
-                          <div className="absolute inset-1 border border-pink-daisy/10 rounded-full" />
-                          <span className="font-display text-base font-bold text-thunder/50 uppercase select-none">
+                      <div className="flex items-center gap-4 pt-6 border-t border-blush-clay/10 text-left">
+                        <div className="w-12 h-12 rounded-full bg-eucalyptus/10 flex items-center justify-center shrink-0 overflow-hidden relative">
+                          <span className="font-display text-base font-bold text-eucalyptus uppercase select-none">
                             {test.customerName[0]}
                           </span>
                         </div>
-                        {/* H3 Customer Name */}
-                        <h3 className="font-display text-lg font-semibold text-lotus leading-snug">
+                        <h3 className="font-display text-lg font-semibold text-deep-sea leading-snug">
                           {test.customerName}
                         </h3>
                       </div>
                     </div>
-                  </Card>
+                  </div>
                 </div>
               );
             })}
@@ -128,17 +124,17 @@ export const Testimonials = () => {
         <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 justify-between items-center hidden md:flex pointer-events-none">
           <button
             onClick={handlePrev}
-            className="w-10 h-10 rounded-full bg-white-rock hover:bg-pink-daisy text-thunder flex items-center justify-center shadow-md cursor-pointer pointer-events-auto border border-pink-daisy transition-all hover:scale-105"
+            className="w-11 h-11 rounded-full bg-pearl hover:bg-blush-clay text-deep-sea hover:text-white-rock flex items-center justify-center shadow-md cursor-pointer pointer-events-auto transition-all hover:scale-105"
             aria-label="Previous testimonial"
           >
-            <ChevronLeft className="w-5 h-5 text-lotus" />
+            <ChevronLeft className="w-5 h-5" />
           </button>
           <button
             onClick={handleNext}
-            className="w-10 h-10 rounded-full bg-white-rock hover:bg-pink-daisy text-thunder flex items-center justify-center shadow-md cursor-pointer pointer-events-auto border border-pink-daisy transition-all hover:scale-105"
+            className="w-11 h-11 rounded-full bg-pearl hover:bg-blush-clay text-deep-sea hover:text-white-rock flex items-center justify-center shadow-md cursor-pointer pointer-events-auto transition-all hover:scale-105"
             aria-label="Next testimonial"
           >
-            <ChevronRight className="w-5 h-5 text-lotus" />
+            <ChevronRight className="w-5 h-5" />
           </button>
         </div>
 
@@ -149,7 +145,7 @@ export const Testimonials = () => {
               key={dotIdx}
               onClick={() => setCurrentIndex(dotIdx)}
               className={`h-2 rounded-full cursor-pointer transition-all duration-300 ${
-                currentIndex === dotIdx ? "w-8 bg-lotus" : "w-2 bg-pink-daisy/60"
+                currentIndex === dotIdx ? "w-8 bg-eucalyptus" : "w-2 bg-blush-clay/35"
               }`}
               aria-label={`Go to testimonial ${dotIdx + 1}`}
             />
