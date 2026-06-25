@@ -357,7 +357,7 @@ export const Contact = () => {
           </div>
         </div>
 
-        {/* Interactive Location Map */}
+        {/* Cookie-free location panel */}
         <div className="w-full mt-16 bg-white-rock/65 rounded-[2rem] p-6 lg:p-8 shadow-[0_18px_55px_rgba(13,27,42,0.07)] backdrop-blur">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
             <div>
@@ -369,17 +369,28 @@ export const Contact = () => {
               <span className="font-body text-xs font-bold uppercase tracking-wider text-eucalyptus">Atelier Open Today</span>
             </div>
           </div>
-          <div className="relative w-full h-[400px] rounded-[1.5rem] overflow-hidden bg-grey-goose shadow-inner">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.844781428286!2d79.8454238758832!3d6.90916051838612!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2594191eb58bb%3A0xe543b5afda8cf940!2s45%20Galle%20Rd%2C%20Colombo%2000300%2C%20Sri%20Lanka!5e0!3m2!1sen!2sus!4v1700600000000!5m2!1sen!2sus0"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen={true}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              className="absolute inset-0 w-full h-full grayscale-[15%] brightness-[95%] hover:grayscale-0 transition-all duration-300 pointer-events-auto"
-            />
+          <div className="relative min-h-[320px] rounded-[1.5rem] overflow-hidden bg-gradient-to-br from-pearl via-grey-goose to-eucalyptus/20 shadow-inner p-8 flex flex-col justify-center">
+            <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-blush-clay/12" />
+            <div className="absolute -bottom-20 left-10 h-56 w-56 rounded-full bg-golden-hour/14" />
+            <div className="relative max-w-xl">
+              <p className="font-body text-xs font-bold uppercase tracking-[0.24em] text-eucalyptus mb-4">
+                Directions
+              </p>
+              <h5 className="font-display text-3xl lg:text-4xl font-semibold text-deep-sea mb-4">
+                Find Glow Atelier on Galle Road
+              </h5>
+              <p className="font-body text-base text-deep-sea/70 leading-relaxed mb-6">
+                We removed the embedded third-party map so the page stays lighter and avoids map cookies. Open the location only when you need directions.
+              </p>
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=45%20Galle%20Road%2C%20Colombo%2003%2C%20Sri%20Lanka"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-full bg-deep-sea px-6 py-3 font-body text-sm font-bold uppercase tracking-wider text-white-rock shadow-[0_14px_35px_rgba(13,27,42,0.2)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-eucalyptus"
+              >
+                Open Google Maps
+              </a>
+            </div>
           </div>
         </div>
       </div>

@@ -6,7 +6,9 @@ type SanityFetchArgs = {
 }
 
 export async function sanityFetch<T>({query, params = {}}: SanityFetchArgs) {
-  const data = await client.fetch<T>(query, params)
+  const data = await client.fetch<T>(query, params, {
+    cache: 'no-store',
+  })
 
   return {data}
 }

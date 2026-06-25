@@ -1,4 +1,8 @@
 node_modules/
+.next/
+.next-prod/
+out/
+tsconfig.tsbuildinfo
 build/
 dist/
 coverage/

@@ -1,10 +1,54 @@
 // components/sections/About.tsx
 "use client";
 
-import React from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
+import { Sparkles } from "lucide-react";
 import { slideInLeft, slideInRight } from "@/lib/animations";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
+
+type CountUpNumberProps = {
+  value: number;
+  suffix?: string;
+  shouldReduceMotion: boolean | null;
+};
+
+const CountUpNumber = ({ value, suffix = "", shouldReduceMotion }: CountUpNumberProps) => {
+  const ref = React.useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.6 });
+  const [count, setCount] = useState(shouldReduceMotion ? value : 0);
+
+  useEffect(() => {
+    if (shouldReduceMotion) {
+      setCount(value);
+      return;
+    }
+
+    if (!isInView) return;
+
+    let frame = 0;
+    const totalFrames = 52;
+    const timeout = window.setInterval(() => {
+      frame += 1;
+      const progress = Math.min(frame / totalFrames, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.round(value * eased));
+
+      if (progress === 1) {
+        window.clearInterval(timeout);
+      }
+    }, 28);
+
+    return () => window.clearInterval(timeout);
+  }, [isInView, shouldReduceMotion, value]);
+
+  return (
+    <span ref={ref} className="font-display text-4xl font-bold text-deep-sea mb-1">
+      {count}
+      {suffix}
+    </span>
+  );
+};
 
 export const About = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -13,47 +57,58 @@ export const About = () => {
   const animRight = shouldReduceMotion ? {} : slideInRight;
 
   const stats = [
-    { number: "15+", label: "Years Experience" },
-    { number: "12K+", label: "Happy Clients" },
-    { number: "35+", label: "Premium Services" },
-    { number: "8", label: "National Awards" },
+    { value: 15, suffix: "+", label: "Years Experience" },
+    { value: 12, suffix: "K+", label: "Happy Clients" },
+    { value: 35, suffix: "+", label: "Premium Services" },
+    { value: 8, suffix: "", label: "National Awards" },
   ];
 
   return (
-    <SectionWrapper id="about" className="bg-white-rock">
+    <SectionWrapper id="about" className="bg-white-rock overflow-hidden">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-        {/* Left Column: Image Placeholder (5 cols) */}
         <motion.div
-          className="lg:col-span-5 w-full h-[350px] lg:h-[450px]"
+          className="lg:col-span-5 w-full"
           variants={animLeft}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
         >
-          <div className="w-full h-full rounded-[2.5rem] bg-grey-goose p-3 shadow-[0_24px_70px_rgba(13,27,42,0.12)] relative">
-            <div className="h-full overflow-hidden rounded-[2rem] relative">
+          <div className="relative min-h-[460px] lg:min-h-[560px]">
+            <div className="absolute -left-8 top-12 h-40 w-40 rounded-full bg-golden-hour/16" />
+            <div className="absolute -bottom-8 right-8 h-52 w-52 rounded-full bg-eucalyptus/14" />
+
+            <div className="absolute left-0 top-0 h-[76%] w-[82%] overflow-hidden rounded-[2.5rem] bg-grey-goose shadow-[0_28px_80px_rgba(13,27,42,0.16)]">
               <img
                 src="/images/inteor1.jpg"
                 alt="Glow Atelier modern salon interior"
                 className="h-full w-full object-cover"
+                loading="lazy"
+                decoding="async"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-deep-sea/55 via-transparent to-transparent" />
-              <div className="absolute -top-3 -right-3 bg-eucalyptus text-white-rock text-[10px] uppercase tracking-widest px-4 py-2 font-bold rounded-full border border-white-rock">
-                Authentic
-              </div>
-              <div className="absolute bottom-5 left-5 rounded-[1.25rem] bg-pearl/90 px-5 py-4 shadow-lg backdrop-blur">
-                <span className="font-display text-3xl font-bold text-deep-sea block leading-none mb-1">
-                  Est. 2011
-                </span>
-                <span className="font-body text-xs uppercase tracking-widest text-eucalyptus font-bold">
-                  Colombo Elite Living
-                </span>
-              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-deep-sea/45 via-transparent to-transparent" />
+            </div>
+
+            <div className="absolute bottom-0 right-0 h-[48%] w-[58%] overflow-hidden rounded-[2rem] border-[10px] border-white-rock bg-grey-goose shadow-[0_24px_70px_rgba(13,27,42,0.14)]">
+              <img
+                src="/images/inteor2.jpg"
+                alt="Glow Atelier private treatment room"
+                className="h-full w-full object-cover"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+
+            <div className="absolute left-6 bottom-16 rounded-[1.5rem] bg-deep-sea px-6 py-5 text-white-rock shadow-[0_18px_50px_rgba(13,27,42,0.24)]">
+              <p className="font-body text-[10px] font-bold uppercase tracking-[0.24em] text-golden-hour mb-2">
+                Est. 2011
+              </p>
+              <p className="font-display text-2xl font-bold leading-none">
+                Colombo care house
+              </p>
             </div>
           </div>
         </motion.div>
 
-        {/* Right Column: Text Story and Badges (7 cols) */}
         <motion.div
           className="lg:col-span-7 flex flex-col justify-center items-start text-left"
           variants={animRight}
@@ -61,29 +116,35 @@ export const About = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
         >
-          {/* Section Heading */}
-          <h2 className="font-display text-3xl lg:text-5xl font-semibold text-deep-sea mb-3">
-            Our Story
+          <p className="inline-flex items-center gap-2 rounded-full bg-eucalyptus/10 px-4 py-2 font-body text-xs font-bold uppercase tracking-[0.22em] text-eucalyptus mb-6">
+            <Sparkles className="h-4 w-4 text-golden-hour" />
+            About Glow Atelier
+          </p>
+
+          <h2 className="font-display text-4xl lg:text-6xl font-semibold text-deep-sea mb-5 leading-tight text-balance">
+            A softer kind of luxury, shaped around real confidence.
           </h2>
 
-          {/* Accent Line */}
           <div className="w-16 h-1 bg-blush-clay rounded-full mb-6" />
 
-          {/* Body Narrative */}
-          <p className="font-body text-base text-deep-sea/82 leading-relaxed mb-6">
+          <p className="font-body text-lg text-deep-sea/82 leading-relaxed mb-5">
             Glow Atelier was founded on Galle Road, Colombo, with a single, uncompromising vision: to marry elite international standards with holistic botanical therapy. For over a decade and a half, we have catered to Colombo’s most discerning tastemakers, offering a sanctuary where luxury is intimate, ethical, and tailored.
           </p>
           <p className="font-body text-base text-deep-sea/70 leading-relaxed mb-8">
             Every master stylist, therapist, and artist in our team is globally trained to deliver meticulous, biology-aware transformations. Whether preparing you for the red carpet or your special bridal day, we ensure you emerge with effortless, long-lasting radiance.
           </p>
 
-          {/* Four Stat Badges */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full pt-4 border-t border-blush-clay/20">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full">
             {stats.map((stat, idx) => (
-              <div key={idx} className="flex flex-col items-start rounded-[1.25rem] bg-pearl p-4 shadow-sm">
-                <span className="font-display text-4xl font-bold text-eucalyptus mb-1">
-                  {stat.number}
-                </span>
+              <div
+                key={idx}
+                className="flex min-h-32 flex-col justify-between rounded-[1.5rem] bg-pearl p-5 shadow-[0_14px_40px_rgba(13,27,42,0.06)] transition-all duration-300 hover:-translate-y-1 hover:bg-white-rock"
+              >
+                <CountUpNumber
+                  value={stat.value}
+                  suffix={stat.suffix}
+                  shouldReduceMotion={shouldReduceMotion}
+                />
                 <span className="font-body text-xs tracking-wider uppercase text-deep-sea/65 font-semibold leading-tight">
                   {stat.label}
                 </span>

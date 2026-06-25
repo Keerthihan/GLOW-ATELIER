@@ -2,11 +2,10 @@
 "use client";
 
 import React from "react";
-import { Check } from "lucide-react";
+import { Check, Sparkles } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 import { packages } from "@/lib/mock-data";
-import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 
@@ -40,7 +39,7 @@ export const Packages = ({ items }: { items?: PackageItem[] }) => {
       </div>
 
       <motion.div
-        className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-8 items-stretch pt-6"
+        className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-7 items-stretch pt-4"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -51,60 +50,115 @@ export const Packages = ({ items }: { items?: PackageItem[] }) => {
             <motion.div
               key={pkg._id ?? pkg.id}
               variants={itemVariants}
-              whileHover={shouldReduceMotion ? undefined : { y: -10, scale: pkg.featured ? 1.04 : 1.02 }}
+              whileHover={shouldReduceMotion ? undefined : { y: -10 }}
               transition={{ duration: 0.25, ease: "easeOut" }}
-              className={pkg.featured ? "lg:scale-105 z-10" : ""}
+              className="h-full"
             >
-              <Card
-                className={`p-8 lg:p-10 flex flex-col justify-between relative h-full transform transition-all duration-300 ${
-                  pkg.featured ? "ring-1 ring-blush-clay/30" : ""
+              <article
+                className={`relative h-full overflow-hidden rounded-[2rem] p-6 lg:p-7 shadow-[0_22px_70px_rgba(13,27,42,0.08)] transition-all duration-500 ${
+                  pkg.featured
+                    ? "bg-deep-sea text-white-rock lg:-mt-5 lg:mb-5"
+                    : "bg-white-rock/85 text-deep-sea"
                 }`}
               >
-                {pkg.featured && (
-                  <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-blush-clay text-white-rock text-[10px] font-bold tracking-widest uppercase px-5 py-2 rounded-full shadow-md">
-                    Most Popular
-                  </span>
-                )}
+                <div
+                  className={`absolute -right-16 -top-16 h-44 w-44 rounded-full ${
+                    pkg.featured ? "bg-blush-clay/25" : "bg-eucalyptus/10"
+                  }`}
+                />
+                <div
+                  className={`absolute -bottom-20 left-8 h-48 w-48 rounded-full ${
+                    pkg.featured ? "bg-golden-hour/15" : "bg-blush-clay/10"
+                  }`}
+                />
 
-                <div>
-                  <h3 className="font-display text-2xl lg:text-3xl font-semibold text-deep-sea mb-2">
-                    {pkg.name}
-                  </h3>
+                <div className="relative flex h-full flex-col">
+                  <div className="mb-8 flex items-start justify-between gap-4">
+                    <div>
+                      <span
+                        className={`inline-flex items-center gap-2 rounded-full px-4 py-2 font-body text-[10px] font-bold uppercase tracking-[0.2em] ${
+                          pkg.featured
+                            ? "bg-golden-hour text-deep-sea"
+                            : "bg-eucalyptus/12 text-eucalyptus"
+                        }`}
+                      >
+                        <Sparkles className="h-3.5 w-3.5" />
+                        {pkg.featured ? "Best Value" : "Package"}
+                      </span>
+                      <h3
+                        className={`mt-5 font-display text-3xl lg:text-4xl font-semibold leading-tight ${
+                          pkg.featured ? "text-white-rock" : "text-deep-sea"
+                        }`}
+                      >
+                        {pkg.name}
+                      </h3>
+                    </div>
+                  </div>
 
-                  <p className="font-body text-xs italic text-deep-sea/55 uppercase tracking-widest mb-8">
+                  <p
+                    className={`font-body text-xs font-bold uppercase tracking-[0.22em] mb-8 ${
+                      pkg.featured ? "text-white-rock/55" : "text-deep-sea/50"
+                    }`}
+                  >
                     {pkg.subtitle ?? "Complete Wellness Ritual"}
                   </p>
 
-                  <ul className="space-y-4 mb-8 text-left">
+                  <div
+                    className={`mb-8 rounded-[1.5rem] px-5 py-5 ${
+                      pkg.featured ? "bg-white-rock/8" : "bg-pearl"
+                    }`}
+                  >
+                    <div className="flex items-end gap-3">
+                      <span
+                        className={`font-body text-sm line-through ${
+                          pkg.featured ? "text-white-rock/38" : "text-deep-sea/40"
+                        }`}
+                      >
+                        {pkg.originalPrice}
+                      </span>
+                      <span
+                        className={`font-display text-4xl font-bold leading-none ${
+                          pkg.featured ? "text-golden-hour" : "text-eucalyptus"
+                        }`}
+                      >
+                        {pkg.discountPrice}
+                      </span>
+                    </div>
+                  </div>
+
+                  <ul className="space-y-3 mb-8 text-left">
                     {pkg.includedServices.map((service, serviceIdx) => (
                       <li
                         key={serviceIdx}
-                        className="flex items-start gap-3 font-body text-base text-deep-sea/82 font-medium"
+                        className={`flex items-start gap-3 rounded-2xl px-4 py-3 font-body text-sm font-semibold ${
+                          pkg.featured
+                            ? "bg-white-rock/8 text-white-rock/82"
+                            : "bg-pearl/75 text-deep-sea/78"
+                        }`}
                       >
-                        <Check className="w-5 h-5 text-eucalyptus shrink-0 mt-0.5" />
+                        <span
+                          className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${
+                            pkg.featured ? "bg-golden-hour text-deep-sea" : "bg-eucalyptus text-white-rock"
+                          }`}
+                        >
+                          <Check className="w-3.5 h-3.5" />
+                        </span>
                         <span>{service}</span>
                       </li>
                     ))}
                   </ul>
-                </div>
 
-                {/* Price and CTA */}
-                <div className="mt-auto pt-8 border-t border-blush-clay/10 text-center">
-                  <div className="flex items-center justify-center gap-3 mb-6">
-                    {/* Original Price struck through */}
-                    <span className="font-body text-sm text-deep-sea/45 line-through">
-                      {pkg.originalPrice}
-                    </span>
-                    <span className="font-display text-3xl font-bold text-eucalyptus">
-                      {pkg.discountPrice}
-                    </span>
+                  <div className="mt-auto">
+                    <Button
+                      href="#contact"
+                      variant={pkg.featured ? "primary" : "outline"}
+                      className="block w-full"
+                    >
+                      Reserve Package
+                    </Button>
                   </div>
-
-                  <Button href="#contact" variant="primary" className="block w-full">
-                    Reserve Package
-                  </Button>
                 </div>
-              </Card>
+              </article>
             </motion.div>
           );
         })}
