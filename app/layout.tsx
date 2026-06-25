@@ -1,20 +1,10 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { JsonLd } from "@/components/seo/JsonLd";
 import "./globals.css";
 
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
-
 const salonName = "Glow Atelier";
+const isProduction = process.env.NODE_ENV === "production";
 
 export const metadata: Metadata = {
   title: {
@@ -57,6 +47,16 @@ export const metadata: Metadata = {
   alternates: {
     canonical: process.env.NEXT_PUBLIC_SITE_URL || "https://aura-lotus.com",
   },
+  icons: {
+    icon: [
+      {
+        url: "/favicon/favicon.jpg",
+        type: "image/jpeg",
+      },
+    ],
+    shortcut: "/favicon/favicon.jpg",
+    apple: "/favicon/favicon.jpg",
+  },
 };
 
 export default function RootLayout({
@@ -86,10 +86,10 @@ export default function RootLayout({
         <JsonLd data={jsonLd} />
       </head>
       <body
-        className={`${playfair.variable} ${inter.variable} font-body bg-white-rock text-thunder antialiased min-h-screen`}
+        className="font-body bg-white-rock text-thunder antialiased min-h-screen"
       >
         {children}
-        <Analytics />
+        {isProduction ? <Analytics /> : null}
       </body>
     </html>
   );

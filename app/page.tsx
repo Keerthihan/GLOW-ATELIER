@@ -13,9 +13,13 @@ import { Testimonials } from "@/components/sections/Testimonials";
 import { FAQ } from "@/components/sections/FAQ";
 import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/layout/Footer";
+import { SectionCurve } from "@/components/ui/SectionCurve";
 
 import { sanityFetch } from "@/sanity/lib/sanityFetch";
 import { HOME_SECTIONS_QUERY } from "@/sanity/lib/queries";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 type GalleryImage = {
   _id: string;
@@ -80,17 +84,23 @@ export default async function Home() {
 
       <main className="flex-grow">
         <Hero />
+        <SectionCurve fromClass="bg-pearl" toClass="bg-white-rock" />
         <About />
+        <SectionCurve fromClass="bg-white-rock" toClass="bg-grey-goose" direction="up" />
         <Services />
+        <SectionCurve fromClass="bg-grey-goose" toClass="bg-pearl" />
         <Packages items={packages} />
         <Team />
-
+        <SectionCurve fromClass="bg-pearl" toClass="bg-grey-goose" direction="up" />
         <Gallery images={gallery} />
-
         <BeforeAfter items={beforeAfter} />
+        <SectionCurve fromClass="bg-grey-goose" toClass="bg-pearl" direction="up" />
         <Offers items={offers} />
+        <SectionCurve fromClass="bg-pearl" toClass="bg-grey-goose" />
         <Testimonials />
+        <SectionCurve fromClass="bg-grey-goose" toClass="bg-grey-goose" direction="up" />
         <FAQ />
+        <SectionCurve fromClass="bg-grey-goose" toClass="bg-pearl" />
         <Contact />
       </main>
 

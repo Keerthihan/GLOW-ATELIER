@@ -4,7 +4,7 @@ import { Crown } from "lucide-react";
 
 export default function Loading() {
   return (
-    <div className="fixed inset-0 bg-white-rock flex flex-col justify-center items-center z-50">
+    <div className="min-h-screen bg-white-rock flex flex-col justify-center items-center">
       {/* Centered pulsing emblem */}
       <div className="relative flex items-center justify-center">
         <div className="absolute w-16 h-16 border-2 border-pink-daisy/40 rounded-full animate-ping" />

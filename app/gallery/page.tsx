@@ -1,7 +1,7 @@
 // app/gallery/page.tsx
 import React from "react";
 import Link from "next/link";
-import { ArrowLeft, Camera } from "lucide-react";
+import { ArrowLeft, Camera, Images, Sparkles } from "lucide-react";
 import { galleryImages } from "@/lib/mock-data";
 import { sanityFetch } from "@/sanity/lib/sanityFetch";
 import { GALLERY_PAGE_QUERY } from "@/sanity/lib/queries";
@@ -13,6 +13,9 @@ export const metadata = {
   title: "Exquisite Client creations Portfolio",
   description: "Explore 24 hand-picked premium beauty modifications, including custom nails art, hair couture, and skin therapies by Glow Atelier artists in Colombo.",
 };
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 type GalleryPageImage = {
   _id: string;
@@ -41,35 +44,54 @@ export default async function GalleryPage() {
       {/* Sticky Navbar */}
       <Navbar />
 
-      <main className="flex-grow spa-shell py-24 px-6 lg:px-16">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-16">
-            <div className="text-left">
-              <p className="font-body text-xs font-bold uppercase tracking-[0.24em] text-eucalyptus mb-4">
+      <main className="relative flex-grow overflow-hidden bg-pearl px-6 py-24 lg:px-16">
+        <div className="absolute inset-x-0 top-0 h-[34rem] bg-[radial-gradient(circle_at_18%_10%,rgba(193,122,122,0.22),transparent_30rem),radial-gradient(circle_at_82%_4%,rgba(111,139,122,0.18),transparent_28rem),linear-gradient(180deg,rgba(247,243,239,0.96),rgba(238,230,221,0.48)_62%,rgba(247,243,239,0)_100%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(118deg,rgba(255,255,255,0.58)_0%,rgba(255,255,255,0.58)_16%,transparent_16%,transparent_54%,rgba(193,122,122,0.08)_54%,rgba(193,122,122,0.08)_68%,transparent_68%),linear-gradient(154deg,transparent_0%,transparent_56%,rgba(111,139,122,0.09)_56%,rgba(111,139,122,0.09)_72%,transparent_72%)]" />
+        <div className="pointer-events-none absolute left-10 top-40 h-72 w-72 rounded-full bg-blush-clay/12 blur-3xl" />
+        <div className="pointer-events-none absolute bottom-40 right-0 h-80 w-80 rounded-full bg-eucalyptus/12 blur-3xl" />
+
+        <div className="relative mx-auto max-w-7xl">
+          <div className="mb-16 grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-end">
+            <div className="text-left lg:col-span-7">
+              <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-eucalyptus/20 bg-white-rock/80 px-4 py-2 font-body text-xs font-bold uppercase tracking-[0.24em] text-eucalyptus shadow-sm backdrop-blur">
+                <Sparkles className="h-4 w-4 text-golden-hour" />
                 Portfolio
               </p>
-              <h1 className="font-display text-5xl lg:text-7xl font-bold text-deep-sea mb-4 text-balance">
-                Complete Portfolio
+              <h1 className="mb-5 font-display text-5xl font-bold leading-[0.95] text-deep-sea text-balance lg:text-7xl">
+                Complete beauty portfolio.
               </h1>
-              <p className="font-body text-base text-deep-sea/70 leading-relaxed max-w-xl">
-                A thorough catalogue of our 24 master transformations curated by the elite stylists and therapists at Glow Atelier Colombo.
+              <p className="max-w-2xl font-body text-base leading-relaxed text-deep-sea/70">
+                Explore polished bridal glam, hair couture, skin rituals, and client-ready beauty details curated by Glow Atelier Colombo.
               </p>
             </div>
 
-            <Link href="/" className="self-start">
-              <Button variant="outline" className="flex items-center gap-2 group py-3 px-5 text-sm">
-                <ArrowLeft className="w-4 h-4 text-lotus group-hover:-translate-x-1 transition-transform" />
-                <span>Return to Sanctuary</span>
-              </Button>
-            </Link>
+            <div className="rounded-[2rem] border border-deep-sea/10 bg-deep-sea px-6 py-6 text-white-rock shadow-[0_24px_70px_rgba(13,27,42,0.16)] lg:col-span-5">
+              <div className="mb-5 flex items-center justify-between gap-4">
+                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white-rock/10 text-golden-hour">
+                  <Images className="h-5 w-5" />
+                </span>
+                <Link href="/" className="shrink-0">
+                  <Button variant="secondary" className="flex items-center gap-2 px-4 py-3 text-xs">
+                    <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+                    Home
+                  </Button>
+                </Link>
+              </div>
+              <p className="mb-3 font-body text-xs font-bold uppercase tracking-[0.24em] text-golden-hour">
+                Studio archive
+              </p>
+              <p className="font-body text-sm leading-relaxed text-white-rock/70">
+                Fresh work appears here automatically after publishing gallery images in Sanity.
+              </p>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {sanityImages.length > 0
               ? sanityImages.map((image, index) => (
-                  <div
+                  <figure
                     key={image._id}
-                    className="relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-pearl shadow-[0_18px_55px_rgba(13,27,42,0.08)] group transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_26px_70px_rgba(13,27,42,0.14)]"
+                    className="group relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-deep-sea bg-deep-sea shadow-[0_18px_55px_rgba(13,27,42,0.1)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_26px_70px_rgba(13,27,42,0.16)]"
                   >
                     {image.imageUrl ? (
                       <>
@@ -80,38 +102,39 @@ export default async function GalleryPage() {
                           decoding="async"
                           className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-deep-sea/82 via-deep-sea/10 to-transparent" />
-                        <div className="absolute left-5 right-5 bottom-5 text-left">
-                          <span className="inline-flex rounded-full bg-pearl/90 px-4 py-2 font-body text-[10px] font-bold uppercase tracking-[0.2em] text-deep-sea shadow-sm backdrop-blur">
-                            {image.caption ?? image.title}
+                        <div className="absolute inset-0 bg-gradient-to-t from-deep-sea/58 via-deep-sea/6 to-transparent" />
+                        <figcaption className="absolute bottom-5 left-5 right-5 text-left">
+                          <span className="inline-flex max-w-full rounded-full bg-white-rock px-4 py-2 font-body text-[10px] font-bold uppercase tracking-[0.2em] text-deep-sea shadow-[0_10px_24px_rgba(13,27,42,0.22)]">
+                            {image.caption ?? image.title ?? "Glow Atelier Portfolio"}
                           </span>
-                        </div>
+                        </figcaption>
                       </>
                     ) : (
-                      <>
+                      <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-pearl to-grey-goose p-8 text-center">
                         <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-blush-clay/12" />
-                        <Camera className="w-6 h-6 text-eucalyptus/50 mb-4 group-hover:scale-110 transition-all duration-300" />
-                        <span className="font-display text-sm font-semibold text-deep-sea uppercase tracking-wider px-2 leading-relaxed">
+                        <Camera className="mb-4 h-7 w-7 text-eucalyptus/50 transition-all duration-300 group-hover:scale-110" />
+                        <span className="px-2 font-display text-sm font-semibold uppercase leading-relaxed tracking-wider text-deep-sea">
                           {image.alt ?? image.title ?? "Gallery image"}
                         </span>
-                      </>
+                      </div>
                     )}
-                    <span className="absolute right-4 top-4 bg-pearl/90 text-deep-sea font-body text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full shadow-sm backdrop-blur">
+                    <span className="absolute right-4 top-4 rounded-full bg-white-rock px-3 py-1.5 font-body text-[10px] font-bold uppercase tracking-widest text-deep-sea shadow-sm">
                       Selection {index + 1}
                     </span>
-                  </div>
+                  </figure>
                 ))
               : galleryImages.map((image) => (
                   <div
                     key={image.id}
-                    className="relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-gradient-to-br from-pearl to-grey-goose p-6 flex flex-col justify-center items-center text-center group shadow-[0_18px_55px_rgba(13,27,42,0.06)] transition-all duration-300"
+                    className="group relative flex aspect-[4/5] flex-col items-center justify-center overflow-hidden rounded-[2rem] border border-deep-sea bg-gradient-to-br from-pearl to-grey-goose p-8 text-center shadow-[0_18px_55px_rgba(13,27,42,0.08)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_26px_70px_rgba(13,27,42,0.14)]"
                   >
                     <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-blush-clay/12" />
-                    <Camera className="w-6 h-6 text-eucalyptus/50 mb-4 group-hover:scale-110 transition-all duration-300" />
-                    <span className="font-display text-sm font-semibold text-deep-sea uppercase tracking-wider px-2 leading-relaxed">
+                    <div className="absolute -bottom-10 -left-10 h-28 w-28 rounded-full bg-eucalyptus/12" />
+                    <Camera className="mb-4 h-7 w-7 text-eucalyptus/50 transition-all duration-300 group-hover:scale-110" />
+                    <span className="px-2 font-display text-sm font-semibold uppercase leading-relaxed tracking-wider text-deep-sea">
                       {image.alt}
                     </span>
-                    <span className="font-body text-[10px] uppercase tracking-widest text-deep-sea/40 mt-4">
+                    <span className="mt-4 rounded-full bg-white-rock px-3 py-1.5 font-body text-[10px] font-bold uppercase tracking-widest text-deep-sea/50 shadow-sm">
                       Selection {image.id.replace("gal-", "")}
                     </span>
                   </div>

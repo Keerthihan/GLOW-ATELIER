@@ -6,7 +6,6 @@ import * as Lucide from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 import { services } from "@/lib/mock-data";
-import { Card } from "@/components/ui/Card";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 
 export const Services = () => {
@@ -36,17 +35,23 @@ export const Services = () => {
 
   return (
     <SectionWrapper id="services" className="bg-grey-goose">
-      <div className="max-w-7xl mx-auto text-center mb-16">
-        {/* Section Heading */}
-        <h2 className="font-display text-3xl lg:text-5xl font-semibold text-deep-sea mb-3">
-          Our Services
-        </h2>
-        <div className="w-16 h-1 bg-blush-clay rounded-full mx-auto mt-2" />
+      <div className="max-w-7xl mx-auto mb-16 grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+        <div className="lg:col-span-7">
+          <p className="font-body text-xs font-bold uppercase tracking-[0.24em] text-eucalyptus mb-3">
+            Signature rituals
+          </p>
+          <h2 className="font-display text-4xl lg:text-6xl font-semibold text-deep-sea mb-4 leading-tight text-balance">
+            Beauty services designed for polished, lasting glow.
+          </h2>
+          <div className="w-16 h-1 bg-blush-clay rounded-full" />
+        </div>
+        <p className="lg:col-span-5 font-body text-base text-deep-sea/68 leading-relaxed lg:text-right">
+          Choose from refined hair, skin, makeup, and bridal services crafted for Colombo’s climate, light, and modern beauty routines.
+        </p>
       </div>
 
-      {/* Grid: 3-column desktop, 2-column tablet, 1-column mobile */}
       <motion.div
-        className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -59,40 +64,44 @@ export const Services = () => {
             whileHover={shouldReduceMotion ? undefined : { y: -8 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
           >
-            <Card className="p-8 flex flex-col justify-between items-start h-full">
-              <div className="w-full">
-                {/* Header: Icon & Category */}
-                <div className="flex items-center justify-between mb-6">
-                  <div className="p-3 bg-eucalyptus/10 rounded-2xl transition-transform duration-300 group-hover:rotate-3">
+            <article className="group relative h-full overflow-hidden rounded-[2rem] bg-white-rock/80 p-6 shadow-[0_18px_55px_rgba(13,27,42,0.07)] transition-all duration-500 hover:bg-pearl hover:shadow-[0_26px_75px_rgba(13,27,42,0.12)]">
+              <div className="absolute -right-14 -top-14 h-36 w-36 rounded-full bg-blush-clay/10 transition-transform duration-500 group-hover:scale-125" />
+              <div className="relative flex h-full flex-col">
+                <div className="flex items-start justify-between gap-4 mb-8">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-[1.25rem] bg-eucalyptus/12 transition-transform duration-300 group-hover:rotate-3 group-hover:scale-105">
                     {getIcon(service.icon)}
                   </div>
-                  <span className="font-body text-sm italic text-blush-clay font-semibold">
+                  <span className="rounded-full bg-blush-clay/12 px-4 py-2 font-body text-[10px] font-bold uppercase tracking-[0.18em] text-deep-sea">
                     {service.category}
                   </span>
                 </div>
 
-                {/* H3 Title */}
-                <h3 className="font-display text-xl lg:text-2xl font-semibold text-deep-sea mb-3">
+                <h3 className="font-display text-2xl lg:text-3xl font-semibold text-deep-sea mb-4 leading-tight">
                   {service.name}
                 </h3>
 
-                {/* Description */}
-                <p className="font-body text-base text-deep-sea/72 leading-relaxed mb-6">
+                <p className="font-body text-base text-deep-sea/70 leading-relaxed mb-8">
                   {service.description}
                 </p>
-              </div>
 
-              {/* Footer: Price Badge, Duration */}
-              <div className="w-full flex items-center justify-between pt-6 border-t border-blush-clay/10 mt-auto">
-                <span className="bg-blush-clay/12 text-deep-sea font-body text-sm font-bold px-3 py-1 rounded-full">
-                  {service.price}
-                </span>
-                <span className="font-body text-sm text-deep-sea/65 flex items-center gap-1">
-                  <Lucide.Clock className="w-4 h-4 text-blush-clay" />
-                  {service.duration}
-                </span>
+                <div className="mt-auto rounded-[1.25rem] bg-pearl px-4 py-4">
+                  <div className="flex items-center justify-between gap-4">
+                    <div>
+                      <span className="block font-body text-[10px] font-bold uppercase tracking-[0.2em] text-eucalyptus mb-1">
+                        From
+                      </span>
+                      <span className="font-display text-2xl font-bold text-deep-sea">
+                        {service.price}
+                      </span>
+                    </div>
+                    <span className="inline-flex items-center gap-2 rounded-full bg-white-rock px-3 py-2 font-body text-xs font-bold uppercase tracking-wider text-deep-sea/65">
+                      <Lucide.Clock className="w-4 h-4 text-blush-clay" />
+                      {service.duration}
+                    </span>
+                  </div>
+                </div>
               </div>
-            </Card>
+            </article>
           </motion.div>
         ))}
       </motion.div>
