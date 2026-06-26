@@ -1,5 +1,5 @@
 export const HOME_SECTIONS_QUERY = /* groq */ `{
-  "gallery": *[_type == "gallery" && !(_id in path("drafts.**")) && isActive != false && defined(image.asset._ref)] | order(sortOrder asc, _createdAt desc) {
+  "gallery": *[_type == "gallery" && !(_id in path("drafts.**")) && isActive != false && defined(image.asset._ref)] | order(_createdAt desc) {
     _id,
     title,
     caption,
@@ -43,7 +43,7 @@ export const HOME_SECTIONS_QUERY = /* groq */ `{
 
 export const GALLERY_PAGE_QUERY = /* groq */ `
   {
-    "gallery": *[_type == "gallery" && !(_id in path("drafts.**")) && isActive != false && defined(image.asset._ref)] | order(sortOrder asc, _createdAt desc) {
+    "gallery": *[_type == "gallery" && !(_id in path("drafts.**")) && isActive != false && defined(image.asset._ref)] | order(_createdAt desc)[0...20] {
       _id,
       title,
       caption,
