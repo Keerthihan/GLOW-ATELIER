@@ -38,6 +38,17 @@ export const HOME_SECTIONS_QUERY = /* groq */ `{
     afterAlt,
     "beforeImageUrl": beforeImage.asset->url,
     "afterImageUrl": afterImage.asset->url
+  },
+  "artists": *[_type == "artist" && !(_id in path("drafts.**")) && isActive != false] | order(sortOrder asc, name asc) {
+    _id,
+    name,
+    "slug": slug.current,
+    role,
+    experience,
+    skills,
+    bio,
+    instagram,
+    "imageUrl": image.asset->url
   }
 }`
 
@@ -58,5 +69,19 @@ export const GALLERY_PAGE_QUERY = /* groq */ `
       "alt": coalesce(caption, "Glow Atelier gallery image"),
       "imageUrl": image.asset->url
     }
+  }
+`
+
+export const ARTISTS_QUERY = /* groq */ `
+  *[_type == "artist" && !(_id in path("drafts.**")) && isActive != false] | order(sortOrder asc, name asc) {
+    _id,
+    name,
+    "slug": slug.current,
+    role,
+    experience,
+    skills,
+    bio,
+    instagram,
+    "imageUrl": image.asset->url
   }
 `

@@ -7,6 +7,7 @@ import gallery from '../schemas/gallery'
 import offer from '../schemas/offer'
 import packageType from '../schemas/package'
 import beforeAfter from '../schemas/beforeAfter'
+import artist from '../schemas/artist'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -17,5 +18,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     offer,
     packageType,
     beforeAfter,
+    artist,
   ],
 }
