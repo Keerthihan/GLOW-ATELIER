@@ -5,6 +5,7 @@ import gallery from '../../sanity/schemas/gallery';
 import offer from '../../sanity/schemas/offer';
 import packageType from '../../sanity/schemas/package';
 import beforeAfter from '../../sanity/schemas/beforeAfter';
+import artist from '../../sanity/schemas/artist';
 
 export const schemaTypes = [
   post,
@@ -14,4 +15,5 @@ export const schemaTypes = [
   offer,
   packageType,
   beforeAfter,
+  artist,
 ];

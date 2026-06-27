@@ -57,12 +57,25 @@ type BeforeAfterItem = {
   afterImageUrl?: string;
 };
 
+type ArtistItem = {
+  _id: string;
+  name: string;
+  slug: string;
+  role: string;
+  experience?: string;
+  skills?: string[];
+  bio?: string;
+  instagram?: string;
+  imageUrl?: string;
+};
+
 type HomeQueryResult = {
   gallery: GalleryImage[];
   postGallery?: GalleryImage[];
   offers: OfferItem[];
   packages: PackageItem[];
   beforeAfter: BeforeAfterItem[];
+  artists: ArtistItem[];
 };
 
 export default async function Home() {
@@ -77,6 +90,7 @@ export default async function Home() {
   const offers = data?.offers ?? [];
   const packages = data?.packages ?? [];
   const beforeAfter = data?.beforeAfter ?? [];
+  const artists = data?.artists ?? [];
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -90,7 +104,7 @@ export default async function Home() {
         <Services />
         <SectionCurve fromClass="bg-grey-goose" toClass="bg-pearl" />
         <Packages items={packages} />
-        <Team />
+        <Team items={artists} />
         <SectionCurve fromClass="bg-pearl" toClass="bg-grey-goose" direction="up" />
         <Gallery images={gallery} />
         <BeforeAfter items={beforeAfter} />
